@@ -7,7 +7,7 @@ const clearBtn = document.getElementById('clear');
 const filterInput = document.getElementById('filter');
 const totalDisplay = document.getElementById('total');
 
-// 🧠 OOP Class
+// OOP Class
 class Expense {
   constructor(name, price, date) {
     this.name = name;
