@@ -6,6 +6,7 @@ const itemList = document.getElementById('item-list');
 const clearBtn = document.getElementById('clear');
 const filterInput = document.getElementById('filter');
 const totalDisplay = document.getElementById('total');
+const nameDisplay = document.getElementById('name');
 
 // OOP Class
 class Expense {
@@ -16,7 +17,24 @@ class Expense {
   }
 }
 
-// Add Item
+// get user name
+function setUserName() {
+  let name = localStorage.getItem('username');
+
+  if (!name) {
+    name = prompt('What is your name?');
+
+    if (name && name.trim() !== '') {
+      localStorage.setItem('username', name);
+    } else {
+      name = 'User';
+    }
+  }
+
+  nameDisplay.textContent = `Welcome ${name}`;
+}
+
+// add item
 function onAddItemSubmit(e) {
   e.preventDefault();
 
@@ -37,7 +55,7 @@ function onAddItemSubmit(e) {
   clearInputs();
 }
 
-// Add to DOM
+// add to DOM
 function addItemToDOM(item) {
   const li = document.createElement('li');
 
@@ -57,7 +75,7 @@ function addItemToDOM(item) {
   itemList.appendChild(li);
 }
 
-// LocalStorage
+// storage
 function getItemsFromStorage() {
   return JSON.parse(localStorage.getItem('items')) || [];
 }
@@ -74,18 +92,17 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(items));
 }
 
-// Remove item
+// remove item
 function removeItem(element, item) {
   element.remove();
   removeItemFromStorage(item);
   updateTotal();
 }
 
-// Display items
+// display
 function displayItems() {
   const items = getItemsFromStorage();
 
-  // Sort by date (newest first)
   items.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   items.forEach(addItemToDOM);
@@ -93,21 +110,21 @@ function displayItems() {
   updateTotal();
 }
 
-// Clear all
+// clear all
 function clearItems() {
   itemList.innerHTML = '';
   localStorage.removeItem('items');
   updateTotal();
 }
 
-// Total calculation
+// total
 function updateTotal() {
   const items = getItemsFromStorage();
   const total = items.reduce((sum, item) => sum + item.price, 0);
   totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
 }
 
-// Filter
+// filter
 function filterItems(e) {
   const text = e.target.value.toLowerCase();
   const items = itemList.querySelectorAll('li');
@@ -118,20 +135,22 @@ function filterItems(e) {
   });
 }
 
-// Clear inputs
+// clear inputs
 function clearInputs() {
   itemInput.value = '';
   priceInput.value = '';
   dateInput.value = '';
 }
 
-// Init
+// INIT
 function init() {
   itemForm.addEventListener('submit', onAddItemSubmit);
   clearBtn.addEventListener('click', clearItems);
   filterInput.addEventListener('input', filterItems);
 
   document.addEventListener('DOMContentLoaded', displayItems);
+
+  setUserName(); // 👈 runs name prompt
 }
 
 init();

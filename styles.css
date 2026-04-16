@@ -1,10 +1,11 @@
 body { 
   font-family: Arial, sans-serif; 
   background: #f4f4f4; 
+  margin: 0;
 } 
 
 .container { 
-  max-width: 500px; 
+  max-width: 900px; 
   margin: auto; 
   padding: 20px; 
 } 
@@ -13,42 +14,99 @@ h1 {
   text-align: center; 
 } 
 
+#name {
+  text-align: center;
+}
+
 #total { 
   text-align: center; 
   margin-bottom: 20px; 
   color: green; 
 } 
 
+/* layout */
+.layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* left */
+.form-section {
+  flex: 1;
+}
+
+/* right */
+.list-section {
+  flex: 1;
+  max-height: 500px;
+  overflow-y: auto;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* form */
 input {
-   width: 100%; 
-   padding: 10px; 
-   margin-bottom: 10px; 
-  } 
-  
-  .btn { 
-    width: 100%; 
-    padding: 10px; 
-    background: #333; 
-    color: white; 
-    border: none; 
-    cursor: pointer; 
-  }
-     
-  .btn-clear { 
-    width: 100%; 
-    margin-top: 10px; 
-    padding: 10px; 
-  } 
-  
-  ul { 
-    list-style: none; 
-    padding: 0; 
-  } 
-  
-  li { 
-    background: white; 
-    margin-bottom: 10px; 
-    padding: 10px; 
-    display: flex; 
-    justify-content: space-between; 
-  }
+  width: 100%; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  box-sizing: border-box;
+} 
+
+.btn { 
+  width: 100%; 
+  padding: 10px; 
+  background: #333; 
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+} 
+
+.btn:hover {
+  background: #555;
+}
+
+.btn-clear { 
+  width: 100%; 
+  margin-bottom: 10px; 
+  padding: 10px; 
+  background: crimson;
+  color: white;
+  border: none;
+  cursor: pointer;
+} 
+
+.btn-clear:hover {
+  background: darkred;
+}
+
+/* list */
+ul { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0;
+} 
+
+li { 
+  background: white; 
+  margin-bottom: 10px; 
+  padding: 10px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+} 
+
+.delete {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  background: darkred;
+}
