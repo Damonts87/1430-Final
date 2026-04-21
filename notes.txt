@@ -1,0 +1,38 @@
+git pull - used to refresh everything that has already been done
+use every time
+
+Requirements (from canvas):
+    Project Development:
+        Application Implementation:
+            Develop the project based on your approved proposal.
+            Ensure it includes interactive features, DOM manipulation, and event handling.
+            Apply Object-Oriented Programming principles where relevant.
+            Store and manage user data using LocalStorage, sessionStorage, or cookies (if applicable).
+            Use CSS to enhance the visual appeal and ensure a clean, responsive design.
+        Code Organization & Best Practices:
+            Write clean, well-commented, and modular code.
+            Follow best practices for file organization and naming conventions.
+            Handle errors and unexpected inputs gracefully.
+        Testing & Debugging:
+            Test your project across different browsers to ensure functionality.
+            Debug any issues using developer tools and console logs.
+            Refine your code based on test results and user experience.
+        Project Deployment:
+            Host your project using Netlify.
+            Ensure all links and functionalities work correctly in the deployed version.
+
+Things I am 80% sure we talked about in meeting with professor:
+    Themes:
+        Light
+        Dark
+    Different kinds of page organization:
+        I think we said that divs could be used here
+    Adding CSS:
+        Add color to the page
+
+Possible to-do list:
+    - CSS --- needed
+    - Page organization --- needed, I think
+    - Themes --- I am unsure if this is needed
+    - Make the search bar search for more than just the item name --- not really needed
+    --- We could also just make seperate search bars ---
