@@ -6,3 +6,6 @@ add report(total cost, # of items, avg $ per item)
 Kayden:
 add color toggle
 edit button
+
+
+remember to git pull everytime you get on
