@@ -1,0 +1,7 @@
+
+Damon:
+add new search(by price)
+add report(total cost, # of items, avg $ per item)
+
+Kayden:
+add color toggle
