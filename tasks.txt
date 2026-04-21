@@ -5,3 +5,4 @@ add report(total cost, # of items, avg $ per item)
 
 Kayden:
 add color toggle
+edit button
