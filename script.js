@@ -10,7 +10,7 @@ const totalDisplay = document.getElementById('total');
 const nameDisplay = document.getElementById('name');
 const themeToggle = document.getElementById('theme-toggle');
 
-// OOP Class
+// Class
 class Expense {
   constructor(name, price, date) {
     this.name = name;
@@ -50,14 +50,13 @@ function onAddItemSubmit(e) {
 
   const expense = new Expense(name, Number(price), date);
 
-  addItemToDOM(expense);
   addItemToStorage(expense);
+  sortItems(); // handles rendering
   updateTotal();
-  sortItems();
   clearInputs();
 }
 
-// Add to DOM
+// DOM render
 function addItemToDOM(item) {
   const li = document.createElement('li');
 
@@ -94,21 +93,20 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(items));
 }
 
-// Remove item
+// Remove
 function removeItem(element, item) {
   element.remove();
   removeItemFromStorage(item);
   updateTotal();
 }
 
-// Display items
+// Display
 function displayItems() {
-  const items = getItemsFromStorage();
-  items.forEach(addItemToDOM);
+  sortItems(); // default render uses sorting
   updateTotal();
 }
 
-// Clear all
+// Clear
 function clearItems() {
   itemList.innerHTML = '';
   localStorage.removeItem('items');
@@ -133,7 +131,7 @@ function filterItems(e) {
   });
 }
 
-// Sort
+// SORT (includes DATE)
 function sortItems() {
   let items = getItemsFromStorage();
   const sortValue = sortSelect.value;
@@ -152,6 +150,14 @@ function sortItems() {
 
   if (sortValue === 'low') {
     items.sort((a, b) => a.price - b.price);
+  }
+
+  if (sortValue === 'new') {
+    items.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  if (sortValue === 'old') {
+    items.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
 
   itemList.innerHTML = '';
