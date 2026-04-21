@@ -59,6 +59,26 @@ h1 {
   border-radius: 8px;
 }
 
+/* NEW: search + sort layout */
+.list-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#filter {
+  flex: 2;
+  padding: 10px;
+}
+
+#sort {
+  flex: 1;
+  padding: 10px;
+  background: var(--box);
+  color: var(--text);
+  border: 1px solid #ccc;
+}
+
 /* form */
 input {
   width: 100%;
