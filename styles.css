@@ -95,7 +95,7 @@ input {
   padding: 10px; 
   background: #333; 
   color: white; 
-  border: none; 
+  border: solid 1px white; 
   cursor: pointer; 
 } 
 
@@ -145,4 +145,33 @@ li {
 
 .delete:hover {
   background: darkred;
+}
+
+.edit {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.2s ease;
+}
+
+.edit:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+.edit:active {
+  transform: scale(0.95);
+}
+
+.editing {
+  outline: 2px solid #3498db;
+}
+
+#report-btn {
+  display: block;
+  margin: 10px auto 20px auto;
 }

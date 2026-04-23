@@ -9,6 +9,11 @@ const sortSelect = document.getElementById('sort');
 const totalDisplay = document.getElementById('total');
 const nameDisplay = document.getElementById('name');
 const themeToggle = document.getElementById('theme-toggle');
+const reportBtn = document.getElementById('report-btn');
+
+let editItem = null;
+let editElement = null;
+const submitBtn = itemForm.querySelector('button');
 
 // Class
 class Expense {
@@ -35,7 +40,7 @@ function setUserName() {
   nameDisplay.textContent = `Welcome ${name}`;
 }
 
-// Add item
+// Add item 
 function onAddItemSubmit(e) {
   e.preventDefault();
 
@@ -50,13 +55,25 @@ function onAddItemSubmit(e) {
 
   const expense = new Expense(name, Number(price), date);
 
-  addItemToStorage(expense);
-  sortItems(); // handles rendering
+  if (editItem) {
+    updateItemInStorage(editItem, expense);
+    editItem = null;
+
+    submitBtn.textContent = 'Add Expense';
+
+    if (editElement) {
+      editElement.classList.remove('editing');
+      editElement = null;
+    }
+  } else {
+    addItemToStorage(expense);
+  }
+
+  sortItems();
   updateTotal();
   clearInputs();
 }
 
-// DOM render
 function addItemToDOM(item) {
   const li = document.createElement('li');
 
@@ -66,11 +83,18 @@ function addItemToDOM(item) {
       $${item.price.toFixed(2)}<br>
       <small>${item.date}</small>
     </div>
-    <button class="delete">X</button>
+    <div>
+      <button class="edit">Edit</button>
+      <button class="delete">X</button>
+    </div>
   `;
 
   li.querySelector('.delete').addEventListener('click', () => {
     removeItem(li, item);
+  });
+
+  li.querySelector('.edit').addEventListener('click', () => {
+    startEditItem(item, li);
   });
 
   itemList.appendChild(li);
@@ -93,6 +117,20 @@ function removeItemFromStorage(item) {
   localStorage.setItem('items', JSON.stringify(items));
 }
 
+// update storage
+function updateItemInStorage(oldItem, newItem) {
+  let items = getItemsFromStorage();
+
+  items = items.map(item => {
+    if (item.name === oldItem.name && item.date === oldItem.date) {
+      return newItem;
+    }
+    return item;
+  });
+
+  localStorage.setItem('items', JSON.stringify(items));
+}
+
 // Remove
 function removeItem(element, item) {
   element.remove();
@@ -102,7 +140,7 @@ function removeItem(element, item) {
 
 // Display
 function displayItems() {
-  sortItems(); // default render uses sorting
+  sortItems();
   updateTotal();
 }
 
@@ -131,7 +169,7 @@ function filterItems(e) {
   });
 }
 
-// SORT (includes DATE)
+// Sort
 function sortItems() {
   let items = getItemsFromStorage();
   const sortValue = sortSelect.value;
@@ -164,6 +202,24 @@ function sortItems() {
   items.forEach(addItemToDOM);
 }
 
+// Start edit
+function startEditItem(item, element) {
+  itemInput.value = item.name;
+  priceInput.value = item.price;
+  dateInput.value = item.date;
+
+  editItem = item;
+
+  if (editElement) {
+    editElement.classList.remove('editing');
+  }
+
+  editElement = element;
+  editElement.classList.add('editing');
+
+  submitBtn.textContent = 'Update Expense';
+}
+
 // Clear inputs
 function clearInputs() {
   itemInput.value = '';
@@ -185,6 +241,27 @@ function toggleTheme() {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
+// report
+function showReport() {
+  const items = getItemsFromStorage();
+
+  if (items.length === 0) {
+    alert('No expenses to report.');
+    return;
+  }
+
+  const total = items.reduce((sum, item) => sum + item.price, 0);
+  const count = items.length;
+  const average = total / count;
+
+  alert(
+    `📊 Expense Report\n\n` +
+    `Total Cost: $${total.toFixed(2)}\n` +
+    `Number of Items: ${count}\n` +
+    `Average Cost: $${average.toFixed(2)}`
+  );
+}
+
 // Events
 themeToggle.addEventListener('click', toggleTheme);
 
@@ -194,6 +271,7 @@ function init() {
   clearBtn.addEventListener('click', clearItems);
   filterInput.addEventListener('input', filterItems);
   sortSelect.addEventListener('change', sortItems);
+  reportBtn.addEventListener('click', showReport);
 
   document.addEventListener('DOMContentLoaded', displayItems);
 
